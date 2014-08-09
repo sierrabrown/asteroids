@@ -4,7 +4,7 @@
 
     var Ship = Asteroids.Ship = function(pos, vel, radius) {
       var COLOR = "black";
-      this.heading = 0;
+      this.heading = Math.PI;
       this.thrust = 0;
       MovingObject.call(this, pos, vel, radius, COLOR);
     };
@@ -25,5 +25,42 @@
       this.vel[0] = this.vel[0] * .97;
       this.vel[1] = this.vel[1] * .97;
     };
+		
+		Ship.prototype.draw = function  (ctx){
+			var pos = this.pos;
+			var ang = this.heading;
+			var pi = Math.PI;
+			var leftVert = ang + (2.25 / 3) * pi;
+			var rightVert = ang + (3.75 / 3) * pi;
+			var rad = this.radius;
+				
+			
+			ctx.beginPath();
+			ctx.moveTo(pos[1] + rad * Math.sin(ang), pos[0] + rad * Math.cos(ang));
+			ctx.lineTo(pos[1] + rad * Math.sin(leftVert), pos[0] + rad * Math.cos(leftVert));
+			ctx.lineTo(pos[1] + rad * Math.sin(rightVert), pos[0] + rad * Math.cos(rightVert));
+			ctx.closePath();
+			ctx.lineWidth = 1;
+			ctx.stroke();
+			
+		};
+		
+		Ship.prototype.addBullet = function() {
+			var pos = this.pos;
+			var rad = this.radius;
+			var ang = this.heading;
+			var origin = [pos[1] + rad * Math.sin(ang), pos[0] + rad * Math.cos(ang)]
+			var bulletVel = [];
+			
+			bulletVel[1] = 5 * Math.cos(ang) + this.vel[0];
+			bulletVel[0] = 5 *  Math.sin(ang) + this.vel[1];
+			
+			return new Asteroids.Bullet(origin, bulletVel, 5);
+		}
+		
+	  Ship.prototype.relocate = function () {
+	    this.pos = [500 * Math.random(), 500 * Math.random()]
+	    this.vel = [0, 0];
+	  };
   
 }) (this);

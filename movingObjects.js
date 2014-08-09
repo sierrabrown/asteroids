@@ -29,14 +29,31 @@
           );
           ctx.fill();
     }
+		
+		MovingObject.prototype.Distance = function(point1, point2) {
+			var xa = point1[1]
+			var xb = point2[0]
+			
+			var ya = point1[0]
+			var yb= point2[1]
+			
+			var dist = Math.pow(xa-xb, 2) + Math.pow(ya-yb, 2)
+			return Math.sqrt(dist)
+		}
     
     MovingObject.prototype.isCollidedWith = function(otherObject){
-     var x = (this.pos[0] - otherObject.pos[0]);
-     var y = (this.pos[1] - otherObject.pos[1]);
-     distance = Math.sqrt (x * x + y * y);
-     
-     return (distance < (this.radius + otherObject.radius));
+	    var centerDist = MovingObject.prototype.Distance(this.pos, otherObject.pos)
+			return centerDist < (this.radius + otherObject.radius);
+     // var x = (this.pos[0] - otherObject.pos[0]);
+     // var y = (this.pos[1] - otherObject.pos[1]);
+     // distance = Math.sqrt (x * x + y * y);
+     //
+     // return (distance < (this.radius + otherObject.radius));
     }
+		
+	  MovingObject.prototype.collideWith = function (otherObject) {
+	    ; // default do nothing
+	  };
     
     MovingObject.prototype.move = function() {      
       this.pos[0] += this.vel[0];

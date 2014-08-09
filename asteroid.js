@@ -27,6 +27,12 @@
       var vel = [(Math.random() * 50 / radius) - 25 / radius, (Math.random() * 50 / radius)- 25 / radius]; 
       return new Asteroid(pos, vel, radius);
     };
+		
+	  Asteroid.prototype.collideWith = function (otherObject) {
+	    if (otherObject instanceof Asteroids.Ship) {
+	      otherObject.relocate();
+	    }
+	  };
 
     
 })(this);
