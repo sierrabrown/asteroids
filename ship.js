@@ -1,9 +1,20 @@
 (function(root) {
     var Asteroids = root.Asteroids = (root.Asteroids || {});
     var MovingObject = Asteroids.MovingObject;
+		
+	  function randomColor () {
+	    var hexDigits = "0123456789ABCDEF";
+
+	    var color = "#";
+	    for (var i = 0; i < 3; i ++) {
+	      color += hexDigits[Math.round((Math.random() * 16))];
+	    }
+
+	    return color;
+	  }
 
     var Ship = Asteroids.Ship = function(pos, vel, radius) {
-      var COLOR = "black";
+      var COLOR = randomColor();
       this.heading = Math.PI;
       this.thrust = 0;
       MovingObject.call(this, pos, vel, radius, COLOR);
@@ -41,6 +52,8 @@
 			ctx.lineTo(pos[1] + rad * Math.sin(rightVert), pos[0] + rad * Math.cos(rightVert));
 			ctx.closePath();
 			ctx.lineWidth = 1;
+      ctx.fillStyle = this.color;
+      ctx.fill();
 			ctx.stroke();
 			
 		};
@@ -59,6 +72,7 @@
 		}
 		
 	  Ship.prototype.relocate = function () {
+			this.color = randomColor()
 	    this.pos = [500 * Math.random(), 500 * Math.random()]
 	    this.vel = [0, 0];
 	  };
