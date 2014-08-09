@@ -1,12 +1,17 @@
 (function(root) {
     var Asteroids = root.Asteroids = (root.Asteroids || {});
     
-    var MovingObject = Asteroids.MovingObject = function(pos, vel, radius, color) {
+    var MovingObject = Asteroids.MovingObject = function(pos, vel, radius, color, game) {
       this.pos = pos;
       this.vel = vel;
       this.radius = radius;
       this.color = color;
+			this.game = game;
     }
+		
+	  MovingObject.prototype.remove = function () {
+	    this.game.remove(this);
+	  };
     
     Function.prototype.inherits = function(superclass){
       function Surrogate() {}
@@ -30,7 +35,7 @@
           ctx.fill();
     }
 		
-		MovingObject.prototype.Distance = function(point1, point2) {
+		MovingObject.prototype.crazyDistance = function(point1, point2) {
 			var xa = point1[1]
 			var xb = point2[0]
 			
@@ -40,9 +45,24 @@
 			var dist = Math.pow(xa-xb, 2) + Math.pow(ya-yb, 2)
 			return Math.sqrt(dist)
 		}
+		
+		MovingObject.prototype.Distance = function(point1, point2) {
+			var xa = point1[0]
+			var xb = point2[0]
+			
+			var ya = point1[1]
+			var yb= point2[1]
+			
+			var dist = Math.pow(xa-xb, 2) + Math.pow(ya-yb, 2)
+			return Math.sqrt(dist)
+		}
     
     MovingObject.prototype.isCollidedWith = function(otherObject){
-	    var centerDist = MovingObject.prototype.Distance(this.pos, otherObject.pos)
+			if (otherObject.radius == 10) {
+	    	var centerDist = MovingObject.prototype.crazyDistance(this.pos, otherObject.pos)
+			} else {
+				var centerDist = MovingObject.prototype.Distance(this.pos, otherObject.pos)
+			}
 			return centerDist < (this.radius + otherObject.radius);
      // var x = (this.pos[0] - otherObject.pos[0]);
      // var y = (this.pos[1] - otherObject.pos[1]);

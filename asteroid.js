@@ -2,15 +2,15 @@
     var Asteroids = root.Asteroids = (root.Asteroids || {});
     var MovingObject = Asteroids.MovingObject;
 
-    var Asteroid = Asteroids.Asteroid = function(pos, vel, radius) {
+    var Asteroid = Asteroids.Asteroid = function(pos, vel, radius, game) {
       var COLOR = "red";
-      MovingObject.call(this, pos, vel, radius, COLOR);
+      MovingObject.call(this, pos, vel, radius, COLOR, game);
     };
     
     Asteroid.inherits(MovingObject);
     
     
-    Asteroid.randomAsteroid = function(dimX,dimY){
+    Asteroid.randomAsteroid = function(dimX,dimY, game){
       var test = Math.floor(Math.random()*4);
       var pos;
       if (test === 0) {
@@ -25,7 +25,7 @@
       
       var radius = 25 * Math.random() + 5;
       var vel = [(Math.random() * 50 / radius) - 25 / radius, (Math.random() * 50 / radius)- 25 / radius]; 
-      return new Asteroid(pos, vel, radius);
+      return new Asteroid(pos, vel, radius, game);
     };
 		
 	  Asteroid.prototype.collideWith = function (otherObject) {

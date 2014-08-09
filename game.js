@@ -3,7 +3,7 @@
     
   var Game = Asteroids.Game = function(ctx) {
     this.ctx = ctx;
-    this.asteroids = this.addAsteroids(2);
+    this.asteroids = this.addAsteroids(10);
     this.ship = this.addShip();
 		this.bullets = []
   };
@@ -12,11 +12,10 @@
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
   
-	
   Game.prototype.addAsteroids = function(numAsteroids) {
     var arr = [];
     for (var i = 0; i < numAsteroids ; i++){
-      arr.push(Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
+      arr.push(Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y, this));
     }
     return arr;
   };
@@ -29,11 +28,12 @@
   };
 	
   Game.prototype.remove = function (object) {
+		debugger
     if (object instanceof Asteroids.Bullet) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Asteroids.Asteroid) {
       var idx = this.asteroids.indexOf(object);
-      this.asteroids[idx] = new Asteroids.Asteroid({ game: this });
+      this.asteroids[idx] = Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y, this);
     } else if (object instanceof Asteroids.Ship) {
       this.ships.splice(this.ships.indexOf(object), 1);
     } else {
@@ -43,7 +43,7 @@
 	
 	
 	Game.prototype.addBullet = function() {
-		this.bullets.push(this.ship.addBullet())
+		this.bullets.push(this.ship.addBullet(this))
 	};
   
   Game.prototype.addShip = function() {
@@ -96,7 +96,6 @@
 		       // don't allow self-collision
 		       return;
 		     }
-
 		     if (obj1.isCollidedWith(obj2)) {
 		       obj1.collideWith(obj2);
 		     }

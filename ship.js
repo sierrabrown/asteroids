@@ -58,7 +58,7 @@
 			
 		};
 		
-		Ship.prototype.addBullet = function() {
+		Ship.prototype.addBullet = function(game) {
 			var pos = this.pos;
 			var rad = this.radius;
 			var ang = this.heading;
@@ -68,7 +68,7 @@
 			bulletVel[1] = 5 * Math.cos(ang) + this.vel[0];
 			bulletVel[0] = 5 *  Math.sin(ang) + this.vel[1];
 			
-			return new Asteroids.Bullet(origin, bulletVel, 5);
+			return new Asteroids.Bullet(origin, bulletVel, 5, game);
 		}
 		
 	  Ship.prototype.relocate = function () {

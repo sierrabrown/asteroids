@@ -2,11 +2,12 @@
     var Asteroids = root.Asteroids = (root.Asteroids || {});
     var MovingObject = Asteroids.MovingObject;
 
-		var Bullet = Asteroids.Bullet = function (pos, vel, radius) {
+		var Bullet = Asteroids.Bullet = function (pos, vel, radius, game) {
 			this.pos = pos;
 			this.vel = vel;
 			this.radius = radius;
 			this.color = 'Black'
+			this.game = game;
 			return this;
 		};
     
@@ -29,5 +30,13 @@
 			ctx.lineWidth = 1;
 			ctx.stroke();
 		}
+		
+	  Bullet.prototype.collideWith = function (otherObject) {
+	    if (otherObject instanceof Asteroids.Asteroid) {
+				debugger
+				this.game.remove(this)
+	      this.game.remove(otherObject)
+	    }
+	  };
   
 }) (this);
