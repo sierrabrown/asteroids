@@ -3,8 +3,9 @@
     
   var Game = Asteroids.Game = function(ctx) {
     this.ctx = ctx;
-    this.asteroids = this.addAsteroids(1);
+    this.asteroids = this.addAsteroids(10);
     this.ship = this.addShip();
+		this.bullets = []
   };
   
   Game.FPS = 20;
@@ -18,6 +19,11 @@
     }
     return arr;
   };
+	
+	Game.prototype.addBullet = function() {
+		debugger
+		this.bullets.push(new Asteroids.Bullet([this.ship.pos[0] + 1, this.ship.pos[1]+1], [8,8], 2))
+	}
   
   Game.prototype.addShip = function() {
     var pos = [Game.DIM_X/2, Game.DIM_Y/2];
@@ -31,12 +37,18 @@
     this.asteroids.forEach(function(asteroid) {
       asteroid.draw(ctx);
     });
+    this.bullets.forEach(function(bullet) {
+      bullet.draw(ctx);
+    });
     this.ship.draw(ctx);
   };
     
   Game.prototype.move = function() {
     this.asteroids.forEach(function(asteroid) {
       asteroid.move();
+    });
+    this.bullets.forEach(function(bullet) {
+      bullet.move();
     });
     this.ship.move();
   };

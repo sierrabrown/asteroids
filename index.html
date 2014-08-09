@@ -6,6 +6,7 @@
   <script src="movingObjects.js"></script>
   <script src="asteroid.js"></script>
   <script src="ship.js"></script>
+	<script src="bullet.js"></script>
   <script src="game.js"></script>
     
 </head>
@@ -23,6 +24,7 @@
   key('a', function () { g.ship.rotate(- Math.PI / 6)});
   key('s', function () { g.ship.power(1)});
   key('d', function () { g.ship.rotate( Math.PI / 6)});
+	key('x', function () { g.addBullet()});
   </script>
 </body>
 </html>
