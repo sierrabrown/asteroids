@@ -1,12 +1,18 @@
 (function(root) {
     var Asteroids = root.Asteroids = (root.Asteroids || {});
     var MovingObject = Asteroids.MovingObject;
+		
+	  function randomColor () {
+			
+			var colors = ["#6FFF00", "#FF00FF", "#FFFF00", "#FE0001", "#FF4105", "#993CF3"]
+			return colors[Math.floor(Math.random() * colors.length)]
+	  }
 
 		var Bullet = Asteroids.Bullet = function (pos, vel, radius, game) {
 			this.pos = pos;
 			this.vel = vel;
 			this.radius = radius;
-			this.color = 'Black'
+			this.color = randomColor()
 			this.game = game;
 			return this;
 		};
@@ -28,6 +34,8 @@
         false
       );
 			ctx.lineWidth = 1;
+      ctx.fillStyle = this.color;
+      ctx.fill();
 			ctx.stroke();
 		}
 		
@@ -38,5 +46,23 @@
 	      this.game.remove(otherObject)
 	    }
 	  };
+		
+    Bullet.prototype.move = function() {      
+      this.pos[0] += this.vel[0];
+      this.pos[1] += this.vel[1];
+      
+      
+      if (this.pos[0] > Asteroids.Game.DIM_X + this.radius){
+        this.game.remove(this)
+      }
+      if (this.pos[0] < 0 - this.radius){
+        this.game.remove(this)
+      }  if (this.pos[1] > Asteroids.Game.DIM_Y + this.radius){
+        this.game.remove(this)
+      }  if (this.pos[1] < 0 - this.radius){
+        this.game.remove(this)
+      }
+      
+    }
   
 }) (this);

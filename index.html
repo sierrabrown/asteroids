@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BadAssteroids</title>
+  <title>Asteroids</title>
+ <link rel="stylesheet" type="text/css" href="stylesheet.css" />
   <script src="keymaster.js"></script>
   <script src="movingObjects.js"></script>
   <script src="asteroid.js"></script>
@@ -11,9 +12,9 @@
     
 </head>
 <body>
-  <canvas width="500" height= "500" ></canvas>
-
-   
+	<div class= "content">
+	<h2 style="text-align:center">Asteroids</h2>
+	<canvas width="500" height= "500" class="centre"></canvas>
   <script>
   var canvas = document.getElementsByTagName("canvas")[0];
   var ctx = canvas.getContext('2d')
@@ -24,8 +25,13 @@
   key('a', function () { g.ship.rotate(- Math.PI / 6)});
   key('s', function () { g.ship.power(1)});
   key('d', function () { g.ship.rotate( Math.PI / 6)});
-	key('x', function () { g.addBullet()});
+	key('space', function () { g.addBullet()});
   </script>
+	<p>A and D to rotate</p>
+	<p>W to deccelerate and reverse, S to accelerate</p>
+	<p>Space bar to fire bullets</p>
+	<p>Random ship regeneration upon asteroid collision</p>
+</div>
 </body>
 </html>
 

@@ -28,7 +28,6 @@
   };
 	
   Game.prototype.remove = function (object) {
-		debugger
     if (object instanceof Asteroids.Bullet) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Asteroids.Asteroid) {
@@ -54,7 +53,8 @@
     
   Game.prototype.draw = function() {
     var ctx = this.ctx;
-    ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+		ctx.fillStyle = "black"
+    ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.asteroids.forEach(function(asteroid) {
       asteroid.draw(ctx);
     });

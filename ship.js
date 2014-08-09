@@ -3,14 +3,9 @@
     var MovingObject = Asteroids.MovingObject;
 		
 	  function randomColor () {
-	    var hexDigits = "0123456789ABCDEF";
-
-	    var color = "#";
-	    for (var i = 0; i < 3; i ++) {
-	      color += hexDigits[Math.round((Math.random() * 16))];
-	    }
-
-	    return color;
+			
+			var colors = ["#6FFF00", "#FF00FF", "#FFFF00", "#FE0001", "#FF4105", "#993CF3"]
+			return colors[Math.floor(Math.random() * colors.length)]
 	  }
 
     var Ship = Asteroids.Ship = function(pos, vel, radius) {

@@ -3,7 +3,7 @@
     var MovingObject = Asteroids.MovingObject;
 
     var Asteroid = Asteroids.Asteroid = function(pos, vel, radius, game) {
-      var COLOR = "red";
+      var COLOR = "white";
       MovingObject.call(this, pos, vel, radius, COLOR, game);
     };
     
